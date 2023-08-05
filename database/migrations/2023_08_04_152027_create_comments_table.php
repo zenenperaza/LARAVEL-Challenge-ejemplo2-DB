@@ -11,17 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('profiles', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->id();
-
-            // $table->unsignedBigInteger('user_id');
-            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
 
-            $table->string('github')->nullable();
-
-
+            $table->unsignedBigInteger('commentable_id');
+            $table->string('commentable_type');
+            $table->string('content');
+            
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('profiles');
+        Schema::dropIfExists('comments');
     }
 };
